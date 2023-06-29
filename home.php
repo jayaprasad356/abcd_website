@@ -1,16 +1,15 @@
 <?php
 session_start();
-
+include_once('includes/crud.php');
 if (isset($_SESSION["id"])) {
-    $session_id = $_SESSION["id"];
+    $session_id = '24875';
 
-    $api_url = "https://localhost/abcd_web/api/user_details.php";
-
+    
     $data = array(
         "user_id" => $session_id,
     );
 
-    $curl = curl_init($api_url);
+    $curl = curl_init(USER_DETAILS_URL);
 
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
@@ -27,9 +26,11 @@ if (isset($_SESSION["id"])) {
         $responseData = json_decode($response, true);
         if ($responseData["success"]) {
             // Display user details
-            echo '<pre>';
-            print_r($responseData["data"]);
-            echo '</pre>';
+            $balance = $responseData["data"][0]['balance'];
+            $total_codes = $responseData["data"][0]['total_codes'];
+            $worked_days = $responseData["data"][0]['worked_days'];
+            $level = $responseData["data"][0]['level'];
+
         } else {
             echo "Failed to fetch user details.";
         }
@@ -416,12 +417,10 @@ if (isset($_SESSION["id"])) {
         0
       </div>
       <div class="box">
-        <p>wallet balance 0.00+0.00</p>
+        <p>wallet balance <?php echo $balance?></p>
       </div>
       <div class="box3">
         <p>Small Box</p>
-        <h4>sdfse dfsd awfesrd waefwdtf waefsr warets</h4>
-        <div class="symbol">< compain task</div>
       </div>
       <form action="#" method="POST">
       <div class="box8">
@@ -478,9 +477,9 @@ if (isset($_SESSION["id"])) {
       </div> 
     </form>
       <div class="box4">
-        <p>total codes 0+0</p>
-        <p>history days 2</p>
-        <p>level 1</p>
+        <p>total codes <?php echo $total_codes?></p>
+        <p>history days <?php echo $worked_days?></p>
+        <p>level <?php echo $level?></p>
       </div>
     </div>
 </div>

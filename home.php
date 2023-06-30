@@ -218,7 +218,7 @@ if (isset($_SESSION["id"])) {
 }
 .box5 {
     position: absolute;
-    top: 200px; /* Adjust the top value to move it down */
+    top: 140px; /* Adjust the top value to move it down */
     left: -5px;
     width: 100%;
     height: 100px; /* Adjust the height as needed */
@@ -245,7 +245,7 @@ if (isset($_SESSION["id"])) {
 
   .box9 {
     position: absolute;
-    top: 340px; /* Adjust the top value to move it down */
+    top: 295px; /* Adjust the top value to move it down */
     left: -50px;
     width: 100%;
     height: 100px; /* Adjust the height as needed */
@@ -259,7 +259,7 @@ if (isset($_SESSION["id"])) {
  
   .box7 {
     position: absolute;
-    top: 270px; /* Adjust the top value to move it down */
+    top: 215px; /* Adjust the top value to move it down */
     left: -2px;
     width: 100%;
     height: 100px; /* Adjust the height as needed */
@@ -273,7 +273,7 @@ if (isset($_SESSION["id"])) {
   .box7 p{
     position: absolute;
     top: -50px; /* Adjust the top value to move it down */
-    left: -120px;
+    right:50px;
     width: 140%;
     height: 100px; /* Adjust the height as needed */
     border-radius: 10px;
@@ -285,7 +285,7 @@ if (isset($_SESSION["id"])) {
   }
   .box8 {
     position: absolute;
-    top: 400px; /* Adjust the top value to move it down */
+    top: 360px; /* Adjust the top value to move it down */
     left: -5px;
     width: 100%;
     height: 100px; /* Adjust the height as needed */
@@ -300,7 +300,7 @@ if (isset($_SESSION["id"])) {
   .box8 p{
     position: absolute;
     top: -50px; /* Adjust the top value to move it down */
-    left: -120px;
+    right:25px;
     width: 140%;
     height: 100px; /* Adjust the height as needed */
     border-radius: 10px;
@@ -382,6 +382,17 @@ if (isset($_SESSION["id"])) {
       fill: #333; /* Change the fill color of the icon */
       color:#333;
     }
+    .small-box3{
+    position: absolute;
+      top:450px;
+      left: 50px;
+      font-size: 14px;
+      height: 40px;
+        width: 200px;
+        background-color:yellow;
+        border-radius: 10px;
+      color:rgb(2, 2, 2);
+  }
   </style>
 </head>
 <body>
@@ -423,59 +434,67 @@ if (isset($_SESSION["id"])) {
         <p>Small Box</p>
       </div>
       <form action="#" method="POST">
-      <div class="box8">
-        <div style="display: flex; justify-content: center;"><p>MADHSWASAMY</p></div>
-        <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-          <input type="text" id="name" name="name" placeholder="Name" class="form-control" required>
-        </div>
-      </div>
-      <div class="box7">
-        <div style="display: flex; justify-content: center;"><p>MADHSWASAMY</p></div>
-        <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-          <input type="text" id="name" name="name" placeholder="Name" class="form-control" required>
-        </div>
-      </div>
-      
-      <div class="box9">
-        <div style="display: flex; justify-content: center;"><h5>VJ67576557</h5></div>
-        <form>
-            <div class="otp-container">
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-            </div>
-        </form>
+  <div>
+    <button class="small-box3" id="generate">GENERATE</button>
+  </div>
+  <div class="box8">
+    <div style="display: flex; justify-content: center;"><p>CHANDRU</p></div>
+    <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
+      <input type="text" id="name1" name="name1" placeholder="Name" class="form-control" required>
     </div>
-    <script>
-      const otpInputs = document.querySelectorAll('.otp-input');
-    
-      otpInputs.forEach((input, index) => {
-        input.addEventListener('input', (event) => {
-          const currentInput = event.target;
-    
-          if (currentInput.value.length >= currentInput.maxLength) {
-            if (index < otpInputs.length - 1) {
-              otpInputs[index + 1].focus();
-            } else {
-              currentInput.blur();
-            }
-          }
-        });
-      });
-    </script>
-      <div class="box5">
-        <div style="display: flex; justify-content: center;"><p>MADHSWASAMY</p></div>
-        <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-          <input type="text" id="name" name="name" placeholder="Name" class="form-control" required>
-        </div>
-      </div> 
+  </div>
+  <div class="box7">
+    <div style="display: flex; justify-content: center;"><p>RAJA</p></div>
+    <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
+      <input type="text" id="name2" name="name2" placeholder="Name" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="box9">
+    <div style="display: flex; justify-content: center;"><h5>VJ67576557</h5></div>
+    <form>
+      <div class="otp-container">
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
+      </div>
     </form>
+  </div>
+  <script>
+  const generateButton = document.getElementById('generate');
+  generateButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    //Get the input values
+    const name1 = document.getElementById('name1').value.trim();
+    const name2 = document.getElementById('name2').value.trim();
+    const name3 = document.getElementById('name3').value.trim();
+
+    if (name1 === 'CHANDRU' && name2 === 'RAJA' && name3 === 'MADHAWASAMY') {
+      //Redirect to generate.php
+      window.location.href = 'generate.php';
+    } else {
+      //Display error message
+      const errorMessage = "Incorrect input. Please enter the correct values.";
+      alert(errorMessage);
+    }
+  });
+</script>
+
+  <div class="box5">
+    <div style="display: flex; justify-content: center;"><p>MADHAWASAMY</p></div>
+    <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
+      <input type="text" id="name3" name="name3" placeholder="Name" class="form-control" required>
+    </div>
+  </div> 
+</form>
+
       <div class="box4">
         <p>total codes <?php echo $total_codes?></p>
         <p>history days <?php echo $worked_days?></p>

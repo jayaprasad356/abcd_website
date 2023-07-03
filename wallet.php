@@ -16,7 +16,7 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 $response = curl_exec($curl);
 
-$datetime = ""; // Initialize the variable
+$datetime = ""; 
 
 if ($response === false) {
     // Error in cURL request
@@ -221,7 +221,7 @@ curl_close($curl);
         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
       </svg>
   
-      <a href ="generate.php">
+      <a href ="wallet.php">
       <svg class="wallet-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
         <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
       </svg>

@@ -1,15 +1,15 @@
 <?php
-$user_id = "20"; // Replace with the actual user_id
+$user_id = "20"; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve the updated bank details from the form submission
+    
     $account_num = $_POST["account_num"];
     $holder_name = $_POST["holder_name"];
     $bank = $_POST["bank"];
     $branch = $_POST["branch"];
     $ifsc = $_POST["ifsc"];
 
-    // Prepare the updated data
+   
     $data = array(
         "account_num" => $account_num,
         "holder_name" => $holder_name,
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $responseData = json_decode($response, true);
         if ($responseData["success"]) {
             echo '<script>alert("Bank details updated successfully.");</script>';
-            // Optionally, you can update the form field values with the updated data here
+            
         } else {
             echo '<script>alert("User not found or an error occurred.");</script>';
         }

@@ -37,9 +37,7 @@ if (isset($_SESSION["id"])) {
     }
 
     curl_close($curl);
-} else {
-    echo "User not logged in.";
-}
+} 
 ?>
 
 
@@ -397,12 +395,12 @@ if (isset($_SESSION["id"])) {
 </head>
 <body>
 <div class="regform">
-  <a href="profile.html">
+  
   <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
   </svg>
-  </a>
-  <a href="wallet.html">
+
+ <a href="wallet.php">
   <svg class="wallet-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
     <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
   </svg>
@@ -428,7 +426,7 @@ if (isset($_SESSION["id"])) {
         0
       </div>
       <div class="box">
-        <p>wallet balance <?php echo $balance?></p>
+        <p>wallet balance </p>
       </div>
       <div class="box3">
         <p>Small Box</p>
@@ -471,21 +469,35 @@ if (isset($_SESSION["id"])) {
   generateButton.addEventListener('click', (event) => {
     event.preventDefault();
 
-    //Get the input values
+    // Get the input values
     const name1 = document.getElementById('name1').value.trim();
     const name2 = document.getElementById('name2').value.trim();
     const name3 = document.getElementById('name3').value.trim();
 
     if (name1 === 'CHANDRU' && name2 === 'RAJA' && name3 === 'MADHAWASAMY') {
-      //Redirect to generate.php
-      window.location.href = 'generate.php';
+      // Load 'generate.php' content into the current page
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          document.body.innerHTML = this.responseText;
+        }
+      };
+      xhr.open('GET', 'generate.php', true);
+      xhr.send();
+
+      // Wait for 1 second (1000 milliseconds) before redirecting back to 'home.php'
+      setTimeout(() => {
+        window.location.href = 'home.php';
+      }, 2000);
     } else {
-      //Display error message
+      // Display error message
       const errorMessage = "Incorrect input. Please enter the correct values.";
       alert(errorMessage);
     }
   });
 </script>
+
+
 
   <div class="box5">
     <div style="display: flex; justify-content: center;"><p>MADHAWASAMY</p></div>
@@ -496,9 +508,9 @@ if (isset($_SESSION["id"])) {
 </form>
 
       <div class="box4">
-        <p>total codes <?php echo $total_codes?></p>
-        <p>history days <?php echo $worked_days?></p>
-        <p>level <?php echo $level?></p>
+        <p>total codes </p>
+        <p>history days</p>
+        <p>level</p>
       </div>
     </div>
 </div>

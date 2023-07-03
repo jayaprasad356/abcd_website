@@ -1,3 +1,49 @@
+<?php
+$user_id = 16; // Replace with the actual user_id
+
+$data = array(
+    "user_id" => $user_id,
+);
+
+$apiUrl = "https://abcd.graymatterworks.com/api/transaction_lists.php"; // Replace with the actual API URL
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+$datetime = ""; // Initialize the variable
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $transactions = $responseData["data"];
+        if (!empty($transactions)) {
+            $datetime = $transactions[0]["datetime"];
+            $amount = $transactions[0]["amount"];
+        } else {
+            echo "No transactions found.";
+        }
+    } else {
+        echo "Failed to fetch transaction details.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+
+curl_close($curl);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,16 +173,59 @@
       fill: #333; /* Change the fill color of the icon */
       color:#333;
     }
+    .box2{
+      background-color: rgb(109, 87, 137);
+      position: absolute;
+      width: 330px;
+      height: 60px;
+      top:270px;
+    }
+    .box2 p{
+      color:white;
+      position: absolute;
+      font-size: 15px;
+      left:54px;
+      top:-2px;
+    }
+    .box2 p1{
+      color:white;
+      position: absolute;
+      font-size: 12px;
+      left:54px;
+      top:34px;
+    }
+    .box2 .currency-icon{
+      color:white;
+      position: absolute;
+      font-size: 12px;
+      left:10px;
+      top:13px;
+      background-color:skyblue;
+    }
+    .box3{
+      position: absolute;
+      width: 45px;
+      height: 22px;
+      left:270px;
+      top:20px;
+      font-size: 13px;
+      background-color:white;
+      color:green;
+    }
   </style>
 </head>
 <body>
   <div class="regform">
+  
     <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
       </svg>
+  
+      <a href ="generate.php">
       <svg class="wallet-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
         <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
       </svg>
+  </a>
       <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
       </svg>
@@ -153,13 +242,20 @@
       <h6>Total codes refund paid - rs 0.00</h6>
       <h6>Total codes refund paid - rs 0.00</h6>
       <div class="box1">
-        <a href="withdrawal.html">
+        <a href="withdrawal.php">
       <button class="withdrawal-button">Withdrawal</button>
     </a>
     </div>
-    <div class="box2">
-      <button class="withdrawal-button">Advanced Withdrawal</button>
     </div>
+    <div class="box2">
+    <svg class="currency-icon" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+  <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+</svg>
+<div class="box3">
+<p2> +<?php echo $amount; ?></p2>
+</div>
+      <p>Amount Credited for Qr code</p>  
+     <p1><?php echo $datetime; ?></p1>
     </div>
 </div>
 </body>

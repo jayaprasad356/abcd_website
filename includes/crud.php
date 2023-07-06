@@ -1,9 +1,9 @@
 <?php
 
 
-define('DOMAIN_URL', 'https://appadmin.abcdapp.in/');
-define('API_URL', 'http://localhost/abcd/api/login.php');
-define('USER_DETAILS_URL', 'https://localhost/abcd/api/userdetails.php');
+define('DOMAIN_URL', 'https://abcd.graymatterworks.com/');
+define('API_URL', 'https://abcd.graymatterworks.com/api/login.php');
+define('USER_DETAILS_URL', 'https://abcd.graymatterworks.com/api/userdetails.php');
 define('ALLOW_MODIFICATION', 1);
 define('JWT_SECRET_KEY', '12345678'); 
 define('MAIN_REFER', 'YMS');

@@ -59,7 +59,7 @@ $data = [
   
 ];
 
-$apiUrl = "https://localhost/abcd_web/api/settings.php"; // Replace with the actual API URL
+$apiUrl = "https://abcd.graymatterworks.com/api/settings.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 

@@ -44,7 +44,6 @@ if (isset($_POST['btnSignin'])) {
                     header("location:home.php");
                     exit();
                 } else {
-                    echo '<script>alert("Response: ' . $responseData["message"] . '");</script>';
                 }
             } else {
                 echo "Incomplete response data.";

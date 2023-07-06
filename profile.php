@@ -1,3 +1,50 @@
+<?php
+$user_id = 11; // Replace with the actual user_id
+
+$data = array(
+    "user_id" => $user_id,
+);
+
+$apiUrl = "https://abcd.graymatterworks.com/api/userdetails.php"; // Replace with the actual API URL
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+$datetime = ""; 
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $userdetails = $responseData["data"];
+        if (!empty($userdetails)) {
+            $name = $userdetails[0]["name"];
+            $total_codes = $userdetails[0]["total_codes"];
+            $withdrawal = $userdetails[0]["withdrawal"];
+            $refer_code = $userdetails[0]["refer_code"];
+        } else {
+            echo "No transactions found.";
+        }
+    } else {
+        echo "Failed to fetch transaction details.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+
+curl_close($curl);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,20 +86,21 @@
 
 .small-box1 {
     position: absolute;
-    bottom:290px;
-    right:480px;
+    bottom:330px;
+    right:520px;
   width: 50px;
   height: 10px;
   padding: 10px 20px 30px;
   background-color: rgb(255, 255, 255);
-  font-size: 18px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(9, 7, 7, 0.437);
+  font-size: 13px;
+  box-shadow: 0 0 5px rgba(9, 7, 7, 0.437);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
+
 .small-box10 {
     position: absolute;
     top:500px;
@@ -72,27 +120,34 @@
 
 .small-box2 {
     position: absolute;
-    bottom:290px;
-    left:500px;
+    bottom:330px;
+    left:530px;
   width: 50px;
   height: 10px;
   padding: 10px 20px 30px;
   background-color: rgb(255, 255, 255);
-  font-size: 18px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(9, 7, 7, 0.437);
+  font-size: 12px;
+  box-shadow: 0 0 5px rgba(9, 7, 7, 0.437);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+}
+.small-box2 h6 {
+    position: absolute;
+    bottom:-7px;
+    left:9px;
+    right:10px;
 }
 
     .small-box {
       
-        margin-top: -90px;
+        margin-top: -70px;
         margin-left:10px;
-      width: 250px;
-      height: 250px; /* Adjust the height as desired */
+        margin-bottom:150px;
+      width: 260px;
+      height: 240px; /* Adjust the height as desired */
       padding: 10px 20px 30px;
       background-color: rgb(255, 255, 255);
       font-size: 20px;
@@ -114,16 +169,17 @@
     }
     
 
-    .small-box5  {
-        position: absolute;
-  top:83%;
+    .small-box5 {
+  position: absolute;
+  top: 80%;
   left: 46%;
-  height:20px;
-  width: 100px;
+  height: 30px;
+  width: 110px;
   background-color: rgb(15, 140, 243);
-  border-radius: 10px;
- 
-  /* Your other button styles */
+  color: #000000; /* Dark black color */
+  font-family: bold;
+  border-color: rgb(15, 140, 243);
+  font-weight: bold; /* Make the font bold */
 }
    
       /* Additional CSS for the person icon */
@@ -199,26 +255,24 @@
 }
 .small-box p{
     position: absolute;
-    bottom:320px;
-    right:590px; 
+    bottom:380px;
+    right:560px; 
 }
 .small-box3 {
     position: absolute;
     width:190px;
-    height: 40px;
-    top:300px;
+    height: 30px;
+    top:260px;
     right:530px;
     background-color: rgb(109, 87, 137);
     color: black;
-    border-radius: 18px;
   /* Add other styles as needed */
 }
 .small-box4 {
-  border-radius: 14px;
     position: absolute;
     width:120px;
-    height: 30px;
-    top:370px;
+    height: 25px;
+    top:340px;
     right:570px;
     background-color: rgb(243, 211, 8);
     color: black;
@@ -238,14 +292,27 @@
     left:70px;
     font-size: 12px;
     background-color: aliceblue;
-    border-radius: 14px;
 }
 .box11 h6{
   font-family: Arial, sans-serif;
     position: absolute;
-    bottom:190px;
+    bottom:230px;
     left:560px;
     font-size: 8px;
+}
+.small-box .img {
+  position: absolute;
+  bottom: 100px;
+  top:100px;
+  color: yellow;
+  font-size: 15px;
+}
+.small-box img {
+  position: absolute;
+  bottom: 430px;
+  width: 100px; /* Adjust the width as per your requirement */
+  height: 100px; /* The height will adjust proportionally */
+  border-radius: 60%; /* Make the image rounded */
 }
 
   </style>
@@ -259,16 +326,20 @@
           </svg>
         </div>
     <div class="bottom-half">
-            <button class="small-box5">Apply leave</button>
+           <!-- <button class="small-box5">Apply Leave</button>-->
       <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
       </svg>
+      <a href="wallet.php">
       <svg class="wallet-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
         <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
       </svg>
+</a>
+ <a href="home.php">
       <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
       </svg>
+</a>
       <svg class="men-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -277,30 +348,27 @@
         <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z"/>
       </svg>
     <div class="small-box">
-        <svg class="test-icon"xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
-          <p>hscuhai</p>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbM-2IhHeIHlulPlhBeI_F6pSRxwxd_KcGsYM3Bm_NMX6LM6I54d4i6KR_nW6z07PB7KI&usqp=CAU">
+          <p><?php echo $name; ?></p>
           <div class="box-container">
-            <div class="small-box1"><h6>totalcodes 0</h6></div>
-            <div class="small-box2"><h6>totalcodes 1200</h6></div>
+            <div class="small-box1"><h6>Total Codes <?php echo $total_codes; ?></h6></div>
+            <div class="small-box2"><h6>Total Withdrawals <?php echo $withdrawal; ?></h6></div>
           </div>
-          <div class="box4">
+        <!-- <div class="box4">
             <button class="small-box3">MY REFERAL EARN</button>
           </div>
           
           <div class="box5">
             <button class="small-box4">TRIAL EARNING</button>
-          </div>
+          </div>-->
     </div>
     <div class="small-box10">
-      <p>Your Refer Code: YM674657</p>
+      <p>Your Refer Code: <?php echo $refer_code; ?></p>
       <button class="small-box6">copy to share</button>
     </div>
-    <div class="box11">
-        <h6>Advanced Withdrawal dqwfw efgrwg ehr</h6>
-      </div>
+   <!-- <div class="box11">
+        <h6>click above to show your 6% earning</h6>
+      </div>-->
 
 </div>
 </body>

@@ -1,47 +1,94 @@
 <?php
+
 session_start();
-include_once('includes/crud.php');
-if (isset($_SESSION["id"])) {
-    $session_id = '24875';
 
-    
-    $data = array(
-        "user_id" => $session_id,
-    );
+$user_id = 11; // Replace with the actual user_id
 
-    $curl = curl_init(USER_DETAILS_URL);
+$data = array(
+    "user_id" => $user_id,
+);
 
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+$apiUrl = "https://abcd.graymatterworks.com/api/userdetails.php"; // Replace with the actual API URL
 
-    $response = curl_exec($curl);
+$curl = curl_init($apiUrl);
 
-    if ($response === false) {
-        // Error in cURL request
-        echo "Error: " . curl_error($curl);
-    } else {
-        // Successful API response
-        $responseData = json_decode($response, true);
-        if ($responseData["success"]) {
-            // Display user details
-            $balance = $responseData["data"][0]['balance'];
-            $total_codes = $responseData["data"][0]['total_codes'];
-            $worked_days = $responseData["data"][0]['worked_days'];
-            $level = $responseData["data"][0]['level'];
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $userdetails = $responseData["data"];
+        if (!empty($userdetails)) {
+            $balance = $userdetails[0]["balance"];
+            $total_codes = $userdetails[0]["total_codes"];
+            $worked_days = $userdetails[0]["worked_days"];
+            $level = $userdetails[0]["level"];
         } else {
-            echo "Failed to fetch user details.";
+            echo "No transactions found.";
+        }
+    } else {
+        echo "Failed to fetch transaction details.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
         }
     }
+}
 
-    curl_close($curl);
-} 
+curl_close($curl);
 ?>
+<?php
 
 
+$apiUrl = "https://localhost/abcd_web/api/studentdata_list.php"; // Replace with the actual API URL
 
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $studentdata = $responseData["data"];
+        if (!empty($userdetails)) {
+            $student_name = $studentdata[0]["student_name"];
+            $pin_code = $studentdata[0]["pin_code"];
+            $ecity = $studentdata[0]["ecity"];
+            $id_number = $studentdata[0]["id_number"];
+        } else {
+            echo "No transactions found.";
+        }
+    } else {
+        echo "Failed to fetch transaction details.";
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+
+curl_close($curl);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,8 +242,21 @@ if (isset($_SESSION["id"])) {
   color: white;
   text-align: center;
 }
-
-
+.box4 p2{
+  position: absolute;
+  top: 2px;
+  left: 100px;
+}
+.box4 p3{
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+.box4 p4{
+  position: absolute;
+  top: 37px;
+  left: 100px;
+}
 .box4 p {
   margin: 0; /* Remove margin */
   padding: 0; /* Remove padding */
@@ -271,7 +331,7 @@ if (isset($_SESSION["id"])) {
   .box7 p{
     position: absolute;
     top: -50px; /* Adjust the top value to move it down */
-    right:50px;
+    right:20px;
     width: 140%;
     height: 100px; /* Adjust the height as needed */
     border-radius: 10px;
@@ -298,7 +358,7 @@ if (isset($_SESSION["id"])) {
   .box8 p{
     position: absolute;
     top: -50px; /* Adjust the top value to move it down */
-    right:25px;
+    right:40px;
     width: 140%;
     height: 100px; /* Adjust the height as needed */
     border-radius: 10px;
@@ -318,7 +378,7 @@ if (isset($_SESSION["id"])) {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px; /* Adjust the spacing between the boxes */
+        gap: 3px; /* Adjust the spacing between the boxes */
     }
 
     .otp-input {
@@ -391,15 +451,18 @@ if (isset($_SESSION["id"])) {
         border-radius: 10px;
       color:rgb(2, 2, 2);
   }
+  .circle p {
+color:white;
+}
   </style>
 </head>
 <body>
 <div class="regform">
-  
+<a href="profile.php">
   <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
   </svg>
-
+  </a>
  <a href="wallet.php">
   <svg class="wallet-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
     <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
@@ -422,11 +485,13 @@ if (isset($_SESSION["id"])) {
       </svg>
     </div>
     <div class="content">
-      <div class="circle">
-        0
-      </div>
+    <div class="circle">
+  <p id="sessionValue"><?php echo $_SESSION['codes']; ?></p>
+</div>
+
+
       <div class="box">
-        <p>wallet balance </p>
+        <p>wallet balance <?php echo $balance; ?></p>
       </div>
       <div class="box3">
         <p>Small Box</p>
@@ -436,20 +501,20 @@ if (isset($_SESSION["id"])) {
     <button class="small-box3" id="generate">GENERATE</button>
   </div>
   <div class="box8">
-    <div style="display: flex; justify-content: center;"><p>CHANDRU</p></div>
+    <div style="display: flex; justify-content: center;"><p><?php echo $pin_code; ?></p></div>
     <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-      <input type="text" id="name1" name="name1" placeholder="Name" class="form-control" required>
+      <input type="text" id="name1" name="name1" placeholder="pincode" class="form-control" required>
     </div>
   </div>
   <div class="box7">
-    <div style="display: flex; justify-content: center;"><p>RAJA</p></div>
+    <div style="display: flex; justify-content: center;"><p><?php echo $ecity; ?></p></div>
     <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-      <input type="text" id="name2" name="name2" placeholder="Name" class="form-control" required>
+      <input type="text" id="name2" name="name2" placeholder="city" class="form-control" required>
     </div>
   </div>
 
   <div class="box9">
-    <div style="display: flex; justify-content: center;"><h5>VJ67576557</h5></div>
+    <div style="display: flex; justify-content: center;"><h5><?php echo $id_number; ?></h5></div>
     <form>
       <div class="otp-container">
         <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
@@ -465,42 +530,43 @@ if (isset($_SESSION["id"])) {
     </form>
   </div>
   <script>
-  const generateButton = document.getElementById('generate');
-  generateButton.addEventListener('click', (event) => {
-    event.preventDefault();
+const generateButton = document.getElementById('generate');
+generateButton.addEventListener('click', (event) => {
+  event.preventDefault();
 
-    // Get the input values
-    const name1 = document.getElementById('name1').value.trim();
-    const name2 = document.getElementById('name2').value.trim();
-    const name3 = document.getElementById('name3').value.trim();
+  // Get the input values
+  const name1 = document.getElementById('name1').value.trim();
+  const name2 = document.getElementById('name2').value.trim();
+  const name3 = document.getElementById('name3').value.trim();
 
-    if (name1 === 'CHANDRU' && name2 === 'RAJA' && name3 === 'MADHAWASAMY') {
-      // Load 'generate.php' content into the current page
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-          document.body.innerHTML = this.responseText;
-        }
-      };
-      xhr.open('GET', 'generate.php', true);
-      xhr.send();
+  if (name1 !== '' || name2 !== '' || name3 !== '') {
+    // Set the session value as 1 using AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        // Redirect to 'home.php' after 2 seconds
+        setTimeout(() => {
+          window.location.href = 'home.php';
+        }, 2000);
+      }
+    };
+    xhr.open('GET', 'set_session.php?codes=1', true);
+    xhr.send();
 
-      // Wait for 1 second (1000 milliseconds) before redirecting back to 'home.php'
-      setTimeout(() => {
-        window.location.href = 'home.php';
-      }, 2000);
-    } else {
-      // Display error message
-      const errorMessage = "Incorrect input. Please enter the correct values.";
-      alert(errorMessage);
-    }
-  });
+    // Update the session value inside the circle
+    const sessionValueElement = document.getElementById('sessionValue');
+    sessionValueElement.innerText = '1';
+  } else {
+    // Display error message
+    const errorMessage = "Incorrect input. Please enter the correct values.";
+    alert(errorMessage);
+  }
+});
+
 </script>
 
-
-
   <div class="box5">
-    <div style="display: flex; justify-content: center;"><p>MADHAWASAMY</p></div>
+    <div style="display: flex; justify-content: center;"><p><?php echo $student_name; ?></p></div>
     <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
       <input type="text" id="name3" name="name3" placeholder="Name" class="form-control" required>
     </div>
@@ -508,9 +574,9 @@ if (isset($_SESSION["id"])) {
 </form>
 
       <div class="box4">
-        <p>total codes </p>
-        <p>history days</p>
-        <p>level</p>
+        <p>total codes <p2><?php echo $total_codes; ?></p2></p>
+        <p>history days <p3><?php echo $worked_days; ?></p3></p>
+        <p>level <p4><?php echo $level; ?></p4></p>
       </div>
     </div>
 </div>

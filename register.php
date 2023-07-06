@@ -20,10 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "device_id" => $device_id,
     );
 
-    $curl = curl_init(API_URL);
+    $apiUrl = "https://abcd.graymatterworks.com/api/register.php"; // Replace with the actual API URL
+
+    $curl = curl_init($apiUrl);
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 

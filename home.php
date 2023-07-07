@@ -539,14 +539,14 @@ generateButton.addEventListener('click', (event) => {
   const name2 = document.getElementById('name2').value.trim();
   const name3 = document.getElementById('name3').value.trim();
 
-  if (name1 == '788120' || name2 == 'AMBIKAPUR' || name3 == 'HARSHABHAT') {
+  if (name1 === '788120' || name2 === 'AMBIKAPUR' || name3 === 'HARSHABHAT') {
     // Set the session value as 1 using AJAX
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
-        // Redirect to 'home.php' after 2 seconds
+        // Redirect to 'generate.php' after 2 seconds
         setTimeout(() => {
-          window.location.href = 'home.php';
+          window.location.href = 'generate.php';
         }, 2000);
       }
     };
@@ -562,8 +562,8 @@ generateButton.addEventListener('click', (event) => {
     alert(errorMessage);
   }
 });
-
 </script>
+
 
   <div class="box5">
     <div style="display: flex; justify-content: center;"><p><?php echo $student_name; ?></p></div>

@@ -8,7 +8,7 @@ $data = array(
     "user_id" => $user_id,
 );
 
-$apiUrl = "https://abcd.graymatterworks.com/api/userdetails.php"; // Replace with the actual API URL
+$apiUrl = "https://localhost/abcd_web/api/userdetails.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 
@@ -50,7 +50,7 @@ curl_close($curl);
 <?php
 
 
-$apiUrl = "https://abcd.graymatterworks.com/api/studentdata_list.php"; // Replace with the actual API URL
+$apiUrl = "https://localhost/abcd_web/api/studentdata_list.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 
@@ -539,7 +539,7 @@ generateButton.addEventListener('click', (event) => {
   const name2 = document.getElementById('name2').value.trim();
   const name3 = document.getElementById('name3').value.trim();
 
-  if (name1 !== '' || name2 !== '' || name3 !== '') {
+  if (name1 == '788120' || name2 == 'AMBIKAPUR' || name3 == 'HARSHABHAT') {
     // Set the session value as 1 using AJAX
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {

@@ -8,7 +8,7 @@ $data = array(
     "user_id" => $user_id,
 );
 
-$apiUrl = "https://localhost/abcd_web/api/userdetails.php"; // Replace with the actual API URL
+$apiUrl = "https://abcd.graymatterworks.com/api/userdetails.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 
@@ -50,7 +50,7 @@ curl_close($curl);
 <?php
 
 
-$apiUrl = "https://localhost/abcd_web/api/studentdata_list.php"; // Replace with the actual API URL
+$apiUrl = "https://abcd.graymatterworks.com/api/studentdata_list.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 

@@ -287,19 +287,7 @@ curl_close($curl);
     font-size: 24px;
     color: #000;
   }
-  .box5 p{
-    position: absolute;
-    top: -50px; /* Adjust the top value to move it down */
-    left: -110px;
-    width: 140%;
-    height: 100px; /* Adjust the height as needed */
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    color: #dfee10;
-  }
+  
 
   .box9 {
     position: absolute;
@@ -506,6 +494,11 @@ color:white;
       <input type="text" id="name1" name="name1" placeholder="pincode" class="form-control" required>
     </div>
   </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
   <div class="box7">
     <div style="display: flex; justify-content: center;"><p><?php echo $ecity; ?></p></div>
     <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
@@ -565,12 +558,15 @@ generateButton.addEventListener('click', (event) => {
 </script>
 
 
-  <div class="box5">
-    <div style="display: flex; justify-content: center;"><p><?php echo $student_name; ?></p></div>
-    <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
-      <input type="text" id="name3" name="name3" placeholder="Name" class="form-control" required>
-    </div>
-  </div> 
+<div class="box5">
+  <div class="input" style="margin-top: 10px; display: flex; justify-content: center;">
+    <input type="text" id="name3" name="name3" placeholder="Name" class="form-control" required>
+  </div>
+  <div class="input" style="display: flex; justify-content: center;">
+    <p><?php echo $student_name; ?></p>
+  </div>
+</div>
+
 </form>
 
       <div class="box4">

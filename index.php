@@ -6,12 +6,13 @@ ob_start();
 if (isset($_POST['btnSignin'])) {
     $mobile = $_POST["mobile"];
     $password = $_POST["password"];
-    $deviceId = 'web';
+    $device_id = md5($_SERVER['HTTP_USER_AGENT']);
+    //$deviceId = 'web';
 
     $data = array(
         "mobile" => $mobile,
         "password" => $password,
-        "device_id" => $deviceId,
+        "device_id" => $device_id,
     );
 
     $apiUrl = "https://abcd.graymatterworks.com/api/login.php"; // Replace with the actual API URL
@@ -40,6 +41,7 @@ if (isset($_POST['btnSignin'])) {
             if (isset($responseData["success"], $responseData["user_verify"], $responseData["device_verify"], $responseData["data"][0]['id'])) {
                 if ($responseData["success"] && $responseData["user_verify"] && $responseData["device_verify"]) {
                     $_SESSION['id'] = $responseData["data"][0]['id'];
+                    $_SESSION['codes'] = 0;
                     echo '<script>alert("Login successful.");</script>';
                     header("location:home.php");
                     exit();

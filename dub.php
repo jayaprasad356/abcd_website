@@ -43,7 +43,7 @@ if (isset($_POST['btnSignin'])) {
                     $_SESSION['id'] = $responseData["data"][0]['id'];
                     $_SESSION['codes'] = 0;
                     echo '<script>alert("Login successful.");</script>';
-                    header("location:home.php");
+                    header("location:home_c.php");
                     exit();
                 } else {
                 }

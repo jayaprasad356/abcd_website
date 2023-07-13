@@ -1,12 +1,11 @@
 <?php
-session_start();
-
-$user_id = 11; // Replace with the actual user_id
-
+$user_id = 1; // Replace with the actual user_id
+$user_id = 1;
 $data = array(
     "user_id" => $user_id,
 );
-$apiUrl = "https://abcd.graymatterworks.com/api/studentdata_list.php"; // Replace with the actual API URL
+
+$apiUrl = "https://abcd.graymatterworks.com/api/withdrawal_lists.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 
@@ -18,6 +17,7 @@ curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 $response = curl_exec($curl);
 
 
+
 if ($response === false) {
     // Error in cURL request
     echo "Error: " . curl_error($curl);
@@ -26,21 +26,38 @@ if ($response === false) {
     $responseData = json_decode($response, true);
     if ($responseData !== null && $responseData["success"]) {
         // Display transaction details
-        $studentdata = $responseData["data"];
-        $name = $studentdata[0]["student_name"];
-        $pincode = $studentdata[0]["pin_code"];
-        $city = $studentdata[0]["ecity"];
-        $id_number = $studentdata[0]["id_number"];
+        $withdrawals = $responseData["data"];
+        if (!empty($withdrawals)) {
+            $datetime = $withdrawals[0]["datetime"];
+            $amount = $withdrawals[0]["amount"];
+            $status = $withdrawals[0]["status"];
+        } else {
+            echo "No data found.";
+        }
+        if (count($withdrawals) > 1) {
+          $datetime2 = $withdrawals[1]["datetime"];
+          $amount2 = $withdrawals[1]["amount"];
+          $status2 = $withdrawals[1]["status"];
+      }
+      if (count($withdrawals) > 2) {
+          $datetime3 = $withdrawals[2]["datetime"];
+          $amount3 = $withdrawals[2]["amount"];
+          $status3 = $withdrawals[2]["status"];
+      }
+     
     } else {
-        echo "Failed to fetch transaction details.";
+        echo "Failed to fetch data details.";
         if ($responseData !== null) {
             echo " Error message: " . $responseData["message"];
         }
     }
 }
 
+
+
 curl_close($curl);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,11 +79,25 @@ curl_close($curl);
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-12" style="display: block; height: 100vh; background-color: rgb(90, 72, 119);">
-
+    <div class="col-12 col-sm-12" style="display: block; height: 129vh; background-color: rgb(90, 72, 119);">
+    <div class="row">
+      <div class="col-6" style="display: block; justify-content: center;">
+      <a href="home_c.php">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+</svg>
+  </a>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6">
         <div class="form-group mb-3">
+        <div class="row">
+        <div class="col-12" style="display: flex; justify-content: center;">
+  <p><small class="text-white"><b>Balance Rs.<?php echo $amount; ?></b></small></p>
+</div>
+
+    </div>
           <label for="name" id="l_name" class="label-yellow-bold">Enter Amount</label>
           <input type="text" id="amount" name="amount" placeholder="Enter Amount" class="form-control" />
         </div>
@@ -83,14 +114,73 @@ curl_close($curl);
       <div class="col-6">
         <div class="card bg-info">
           <div class="card-header">
-            Amount - ₹ 250
+            Amount - ₹ <?php echo $amount; ?>
           </div>
           <div class="card-body">
-            <h5 class="card-title">Status - Cancelled</h5>
-            <p class="card-text">2023-07-12 20:02:20</p>
+            <h5 class="card-title">Status - <?php
+if ($status === "paid") {
+    echo '<p4 style="color: green;">'.$status.'</p4>';
+} elseif ($status === "cancelled") {
+    echo '<p4 style="color: red;">'.$status.'</p4>';
+} elseif ($status === "blocked") {
+    echo '<p4 style="color: orange;">'.$status.'</p4>';
+} else {
+    echo $status;
+}
+?></h5>
+
+            <p class="card-text"><?php echo $datetime; ?></p>
           </div>
         </div>
-
+</div>
+</div>
+</br>
+<!-- Add this section below the existing card -->
+<div class="col-6">
+  <div class="card bg-info">
+    <div class="card-header">
+      Amount - ₹ <?php echo $amount2; ?>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Status - <?php
+if ($status2 === "paid") {
+    echo '<p4 style="color: green;">'.$status2.'</p4>';
+} elseif ($status2 === "cancelled") {
+    echo '<p4 style="color: red;">'.$status2.'</p4>';
+} elseif ($status2 === "blocked") {
+    echo '<p4 style="color: orange;">'.$status2.'</p4>';
+} else {
+    echo $status2;
+}
+?></h5>
+      <p class="card-text"><?php echo $datetime2; ?></p>
+    </div>
+  </div>
+</div>
+<br>
+<!-- Add this section below the existing card -->
+<div class="col-6">
+  <div class="card bg-info">
+    <div class="card-header">
+      Amount - ₹ <?php echo $amount3; ?>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Status - <?php
+if ($status2 === "paid") {
+    echo '<p4 style="color: green;">'.$status3.'</p4>';
+} elseif ($status2 === "cancelled") {
+    echo '<p4 style="color: red;">'.$status3.'</p4>';
+} elseif ($status2 === "blocked") {
+    echo '<p4 style="color: orange;">'.$status3.'</p4>';
+} else {
+    echo $status2;
+}
+?></h5>
+      <p class="card-text"><?php echo $datetime3; ?></p>
+    </div>
+  </div>
+</div>
+</div>
       </div>
 
     </div>
@@ -98,6 +188,7 @@ curl_close($curl);
     </div>
   </div>
 </div>
+<br>
 
 
 <script>

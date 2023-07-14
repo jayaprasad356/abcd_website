@@ -124,11 +124,26 @@ curl_close($curl);
         <p style="margin-bottom: 0; color: white;">History Days <?php echo $worked_days ?></p>
         <p style="margin-bottom: 0; color: white;">Level <?php echo $level; ?></p>
       </div>
-      <div class="col-4" style="height: 100%;">
-      
-        <button  class="btn btn-primary" onclick="withdrawal()" >Withdrawal</button>
+      <div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div style="display: flex; justify-content: flex-end;">
+        <div class="row mt-10" style="border-radius: 50%; position: relative; bottom: 90px; left: 70px;">
+          <button class="btn btn-primary btn-block mb-3" onclick="withdrawal()">Withdrawal</button>
+        </div>
+        <div class="row">
+          <div class="col-12" style="border-radius: 50%; position: relative; bottom: 20px; right: 20px;">
+            <button class="btn btn-primary btn-block mb-2" onclick="profile()">Profile</button>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+
 
       <div class="form-group mb-3">
         <label for="name" id="l_name" class="label-yellow-bold"><?php echo $name; ?></label>
@@ -208,6 +223,10 @@ function syncnow() {
 }
 function withdrawal() {
   window.location.href = 'withdrawal_c.php';
+
+}
+function profile() {
+  window.location.href = 'profile.php';
 
 }
 function generate() {

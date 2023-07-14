@@ -1,4 +1,5 @@
 <?php
+include_once('includes/crud.php');
 session_start();
 $user_id = $_SESSION['id'];
 $amount = $_SESSION['balance'] ;
@@ -26,9 +27,9 @@ $amount = $_SESSION['balance'] ;
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-12" style="display: block; height: 129vh; background-color: rgb(90, 72, 119);">
+    <div class="col-md-12 col-sm-12" style="display: block; height: 129vh; background-color: rgb(90, 72, 119);">
     <div class="row">
-      <div class="col-6" style="display: block; justify-content: center;">
+      <div class="col-md-6" style="display: block; justify-content: center;">
       <a href="home_c.php">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -37,10 +38,10 @@ $amount = $_SESSION['balance'] ;
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="form-group mb-3">
         <div class="row">
-        <div class="col-12" style="display: flex; justify-content: center;">
+        <div class="col-md-12" style="display: flex; justify-content: center;">
   <p><small class="text-white"><b>Balance Rs.<?php echo $amount; ?></b></small></p>
 </div>
 
@@ -52,7 +53,7 @@ $amount = $_SESSION['balance'] ;
       </div>
     </div>
     <div class="row">
-      <div class="col-6" style="display: flex; justify-content: center;">
+      <div class="col-md-6" style="display: flex; justify-content: center;">
       <button  class="btn btn-primary" onclick="withdrawal()" >Withdrawal</button>
       </div>
     </div>
@@ -90,7 +91,7 @@ if ($response === false) {
             $amount = $withdrawals[$i]["amount"];
             $status = $withdrawals[$i]["status"];?>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="card bg-info">
           <div class="card-header">
             Amount - ₹ <?php echo $amount?>

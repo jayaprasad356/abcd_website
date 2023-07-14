@@ -1,5 +1,5 @@
 <?php
-
+include_once('includes/crud.php');
 session_start();
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
@@ -48,9 +48,61 @@ if ($response === false) {
 
 curl_close($curl);
 ?>
+
 <?php
 
-$user_id = 11; // Replace with the actual user_id
+if (isset($_POST['btnSync'])) {
+  if($codes != 60){
+    $message = 'Generate 60 Codes Please';
+    echo "<script>alert('$message');</script>";
+  }
+$data = array(
+    "user_id" => $user_id,
+    "codes" => $codes,
+);
+$apiUrl = API_URL."wallet.php";
+
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $codes == 60 && isset($responseData["today_codes"])) {
+        $message = $responseData["message"];
+        $today_codes = $responseData["today_codes"];
+        $total_codes = $responseData["total_codes"];
+        $_SESSION['balance'] = $responseData["balance"];
+        $_SESSION['codes'] = 0;
+        $codes = $_SESSION['codes'];
+        echo "<script>alert('$message');</script>";
+
+    } else {
+        // echo "Failed to fetch transaction details.";
+        // if ($responseData !== null) {
+        //     echo " Error message: " . $responseData["message"];
+        // }
+    }
+}
+
+curl_close($curl);
+
+}
+?>
+<?php
+
+$user_id = $_SESSION['id'];
 
 $data = array(
     "user_id" => $user_id,
@@ -115,8 +167,11 @@ curl_close($curl);
     <div class="row" >
       <div class="col-3">
         <h5 class="text-white"id="codes"><?php echo  $codes?></h5>
+        <form method="post" enctype="multipart/form-data">
+          <button type="submit" name="btnSync" class="btn btn-primary" >Sync Now</button>
+        </form>
         
-        <button type="button" class="btn btn-primary" onclick="syncnow()">Sync Now</button>
+        
       </div>
       <div class="col-4" style="height: 100%;">
         <!-- <p style="margin-bottom: 0; color: white;">Balance 5</p> -->
@@ -125,21 +180,9 @@ curl_close($curl);
         <p style="margin-bottom: 0; color: white;">History Days <?php echo $worked_days ?></p>
         <p style="margin-bottom: 0; color: white;">Level <?php echo $level; ?></p>
       </div>
-      <div class="container">
-  <div class="row">
-    <div class="col-12 col-md-6">
-      <div style="display: flex; justify-content: flex-end;">
-        <div class="row mt-10" style="border-radius: 50%; position: relative; bottom: 90px; left: 70px;">
-          <button class="btn btn-primary btn-block mb-3" onclick="withdrawal()">Withdrawal</button>
-        </div>
-        <!-- <div class="row">
-          <div class="col-12" style="border-radius: 50%; position: relative; bottom: 10px; right: 20px;">
-            <button class="btn btn-primary btn-block mb-2" onclick="profile()">Profile</button>
-          </div>
-        </div> -->
-      </div>
+      <div class="col-4">
+      <button class="btn btn-primary btn-block mb-3" onclick="withdrawal()">Withdrawal</button>
     </div>
-  </div>
 </div>
 
 

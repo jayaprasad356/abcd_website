@@ -2,7 +2,7 @@
 
 session_start();
 $codes = $_SESSION['codes'];
-$user_id = 11; // Replace with the actual user_id
+$user_id = $_SESSION['id']; // Replace with the actual user_id
 
 $data = array(
     "user_id" => $user_id,
@@ -34,6 +34,7 @@ if ($response === false) {
             $total_codes = $userdetails[0]["total_codes"];
             $worked_days = $userdetails[0]["worked_days"];
             $level = $userdetails[0]["level"];
+            $_SESSION['balance'] = $userdetails[0]["balance"];
         } else {
             echo "No transactions found.";
         }

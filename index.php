@@ -80,7 +80,7 @@ if (isset($_POST['btnSignin'])) {
     <div class="row justify-content-center">
       <div class="col-12 col-sm-12" style="background-color: rgb(90, 72, 119); min-height: 100vh;">
         <div class="text-center py-4">
-          <img src="img/logo.jpeg" alt="" width="130" height="130" style="border-radius: 50%;">
+          <img src="img/logo.jpeg" alt="" width="130" height="130" style="border-radius: 50%; position: relative; top: 40px; left: 10px;">
         </div>
         <div class="row justify-content-center mt-4">
           <div class="col-10 col-sm-6">
@@ -91,6 +91,7 @@ if (isset($_POST['btnSignin'])) {
           </div>
         </div>
         <div class="row justify-content-center">
+<<<<<<< HEAD
           <div class="col-10 col-sm-6">
             <div class="form-group mb-3">
               <label for="password" id="password" class="label-yellow-bold">Password:</label>
@@ -110,6 +111,35 @@ if (isset($_POST['btnSignin'])) {
             </div>
           </div>
         </div>
+=======
+  <div class="col-10 col-sm-6">
+    <div class="form-group mb-3">
+      <label for="password" id="password" class="label-yellow-bold">Password:</label>
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" />
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center mt-2">
+  <div class="col-12 col-sm-8 text-center">
+    <label class="checkbox-label" for="checkbox" style="color: white;">
+      <input class="check" type="checkbox" id="checkbox" name="remember">
+      <a href="<?php echo $job_details_link; ?>" style="color: white;">
+      I have read and agree to the job details and terms &amp; conditions
+      </a>
+    </label>
+  </div>
+</div>
+>>>>>>> e9d1e3f231fc4f22daab25af1153aa6adfae4842
 
         <div class="row justify-content-center mt-4">
           <div class="col-8 col-sm-4 text-center">

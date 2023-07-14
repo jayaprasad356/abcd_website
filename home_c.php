@@ -7,8 +7,8 @@ $user_id = $_SESSION['id']; // Replace with the actual user_id
 $data = array(
     "user_id" => $user_id,
 );
+$apiUrl = API_URL."userdetails.php";
 
-$apiUrl = "https://abcd.graymatterworks.com/api/userdetails.php"; // Replace with the actual API URL
 
 $curl = curl_init($apiUrl);
 
@@ -55,8 +55,8 @@ $user_id = 11; // Replace with the actual user_id
 $data = array(
     "user_id" => $user_id,
 );
-$apiUrl = "https://abcd.graymatterworks.com/api/studentdata_list.php"; // Replace with the actual API URL
 
+$apiUrl = API_URL."studentdata_list.php";
 $curl = curl_init($apiUrl);
 
 curl_setopt($curl, CURLOPT_POST, true);

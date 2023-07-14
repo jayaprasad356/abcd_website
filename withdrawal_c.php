@@ -62,8 +62,7 @@ $amount = $_SESSION['balance'] ;
 $data = array(
     "user_id" => $user_id,
 );
-
-$apiUrl = "https://abcd.graymatterworks.com/api/withdrawal_lists.php"; // Replace with the actual API URL
+$apiUrl = API_URL."withdrawal_lists.php";
 
 $curl = curl_init($apiUrl);
 

@@ -16,7 +16,7 @@ if (isset($_POST['btnSignin'])) {
         "device_id" => $device_id,
     );
 
-    $apiUrl = "https://abcd.graymatterworks.com/api/login.php"; // Replace with the actual API URL
+    $apiUrl = API_URL."login.php"; // Replace with the actual API URL
 
     $curl = curl_init($apiUrl);
 

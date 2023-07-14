@@ -121,7 +121,7 @@ curl_close($curl);
     <div class="row justify-content-center">
       <div class="col-12 col-sm-12" style="background-color: rgb(90, 72, 119); min-height: 100vh;">
         <div class="text-center py-4">
-          <img src="img/logo.jpeg" alt="" width="130" height="130" style="border-radius: 50%; position: relative; top: 40px; left: 20px;">
+          <img src="img/logo.jpeg" alt="" width="130" height="130" style="border-radius: 50%; position: relative; top: 40px; left: 10px;">
         </div>
         <div class="row justify-content-center mt-4">
           <div class="col-10 col-sm-6">

@@ -132,11 +132,11 @@ curl_close($curl);
         <div class="row mt-10" style="border-radius: 50%; position: relative; bottom: 90px; left: 70px;">
           <button class="btn btn-primary btn-block mb-3" onclick="withdrawal()">Withdrawal</button>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12" style="border-radius: 50%; position: relative; bottom: 10px; right: 20px;">
             <button class="btn btn-primary btn-block mb-2" onclick="profile()">Profile</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -196,34 +196,34 @@ curl_close($curl);
       <div class="form-group mb-3">
       <label class="label-yellow-bold" id="l_otp"><?php echo $id_number; ?></label>
         <div class="row">
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_1" name="otp_1" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_2')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_2" name="otp_2" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_3')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_3" name="otp_3" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_4')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_4" name="otp_4" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_5')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_5" name="otp_5" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_6')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_6" name="otp_6" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_7')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_7" name="otp_7" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_8')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_8" name="otp_8" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_9')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_9" name="otp_9" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_10')" />
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <input type="text" id="otp_10" name="otp_10" class="form-control" maxlength="1" />
           </div>
             

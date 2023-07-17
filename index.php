@@ -116,10 +116,13 @@ if (isset($_POST['btnSignin'])) {
             <button type="submit" name="btnSignin" class="btn btn-primary">Sign in</button>
           </div>
         </div>
+        <div class="row justify-content-center mt-4">
+        <div class="col-8 col-sm-4 text-center">
+          <a href="register.php" class="btn btn-primary">Create New Account</a>
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 
 <script>
   window.addEventListener('DOMContentLoaded', function() {

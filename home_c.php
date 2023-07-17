@@ -194,7 +194,7 @@ curl_close($curl);
         <input type="text" id="name" name="name" placeholder="Enter Name" class="form-control" />
       </div>
       <div class="form-group mb-3">
-      <label class="label-yellow-bold" id="l_otp"><?php echo $id_number; ?></label>
+      <label class="label-yellow-bold user-select-none" id="l_otp"><?php echo $id_number; ?></label>
         <div class="row">
           <div class="col-2">
             <input type="text" id="otp_1" name="otp_1" class="form-control" maxlength="1" oninput="moveToNext(this, 'otp_2')" />

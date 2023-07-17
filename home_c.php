@@ -190,7 +190,7 @@ curl_close($curl);
 
 
       <div class="form-group mb-3">
-        <label for="name" id="l_name" class="label-yellow-bold"><?php echo $name; ?></label>
+        <label for="name" id="l_name" class="label-yellow-bold font-weight-bold  user-select-none"><?php echo $name; ?></label>
         <input type="text" id="name" name="name" placeholder="Enter Name" class="form-control" />
       </div>
       <div class="form-group mb-3">
@@ -230,11 +230,11 @@ curl_close($curl);
         </div>
       </div>
       <div class="form-group mb-3">
-        <label for="name" id="l_city" class="label-yellow-bold"><?php echo $city; ?></label>
+        <label for="name" id="l_city" class="label-yellow-bold font-weight-bold  user-select-none"><?php echo $city; ?></label>
         <input type="text" id="city" name="city" placeholder="Enter City" class="form-control" />
       </div>
       <div class="form-group mb-3">
-        <label for="name" id="l_pincode" class="label-yellow-bold"><?php echo $pincode; ?></label>
+        <label for="name" id="l_pincode" class="label-yellow-bold font-weight-bold  user-select-none"><?php echo $pincode; ?></label>
         <input type="text" id="pincode" name="pincode" placeholder="Enter Pincode" class="form-control" />
       </div>
       <div style="display: flex; justify-content: center;">

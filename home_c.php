@@ -1,9 +1,13 @@
 <?php
 include_once('includes/crud.php');
 session_start();
+
+if (!isset($_SESSION['id'])) {
+  header("location:index.php");
+}
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
-
+$_SESSION['codes'] = 60;
 $data = array(
     "user_id" => $user_id,
 );
@@ -274,6 +278,7 @@ function profile() {
 
 }
 function generate() {
+
   var name = document.getElementById("name").value;
   var l_name = document.getElementById("l_name").innerHTML;
 
@@ -330,8 +335,14 @@ $.ajax({
     action: 'myFunction' // Send the name of the PHP function as data
   },
   success: function(response) {
+    if(response == 'true'){
+      window.location.href = 'generate_c.php';
+
+    }else{
+      alert('please sync codes');
+    }
     
-    window.location.href = 'generate_c.php';
+    
   },
   error: function(xhr, status, error) {
 

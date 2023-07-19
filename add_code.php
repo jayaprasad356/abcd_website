@@ -1,6 +1,11 @@
 <?php
 session_start();
-$_SESSION['codes'] = $_SESSION['codes'] + 1;
-echo $_SESSION['codes'];
+if($_SESSION['codes'] >= 60){
+    echo 'false';
+}else{
+    $_SESSION['codes'] = $_SESSION['codes'] + 1;
+    echo 'true';
+}
+
 
 ?>

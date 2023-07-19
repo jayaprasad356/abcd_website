@@ -5,7 +5,55 @@ if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
 $user_id = $_SESSION['id'];
-$amount = $_SESSION['balance'] ;
+$balance = $_SESSION['balance'] ;
+
+
+if (isset($_POST['btnWithdrawal'])) {
+  $amount = $_POST['amount'];
+$data = array(
+    "user_id" => $user_id,
+    "amount" => $amount,
+);
+$apiUrl = API_URL."withdrawal.php";
+
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && isset($responseData["success"])) {
+        $message = $responseData["message"];
+        if(isset($responseData["balance"])){
+          $_SESSION['balance'] = $responseData['balance'];
+        $balance = $_SESSION['balance'] ;
+
+        }
+        
+        echo "<script>alert('$message');</script>";
+
+    } else {
+        // echo "Failed to fetch transaction details.";
+        // if ($responseData !== null) {
+        //     echo " Error message: " . $responseData["message"];
+        // }
+    }
+}
+
+curl_close($curl);
+
+}
 ?>
 
 
@@ -40,26 +88,30 @@ $amount = $_SESSION['balance'] ;
   </a>
       </div>
     </div>
+    <form method="post" enctype="multipart/form-data">
+
     <div class="row">
       <div class="col-md-6">
         <div class="form-group mb-3">
         <div class="row">
         <div class="col-md-12" style="display: flex; justify-content: center;">
-  <p><small class="text-white"><b>Balance Rs.<?php echo $amount; ?></b></small></p>
+  <p><small class="text-white"><b>Balance Rs.<?php echo $balance; ?></b></small></p>
 </div>
-
     </div>
           <label for="name" id="l_name" class="label-yellow-bold">Enter Amount</label>
-          <input type="text" id="amount" name="amount" placeholder="Enter Amount" class="form-control" />
+          <input type="text" id="amount" name="amount" placeholder="Enter Amount" class="form-control" required />
         </div>
-        <p><small class="text-white">Minimum Withdrawal Rs.500</small></p>
+        <p><small class="text-white">Minimum Withdrawal Rs.250</small></p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6" style="display: flex; justify-content: center;">
-      <button  class="btn btn-primary" onclick="withdrawal()" >Withdrawal</button>
+        <button type="submit" name="btnWithdrawal" class="btn btn-primary" >Withdrawal</button>
+
       </div>
     </div>
+
+    </form>
     <br>
     <?php
 
@@ -91,13 +143,13 @@ if ($response === false) {
 
         for ($i = 0; $i < count($withdrawals); $i++) {
             $datetime = $withdrawals[$i]["datetime"];
-            $amount = $withdrawals[$i]["amount"];
+            $wamount = $withdrawals[$i]["amount"];
             $status = $withdrawals[$i]["status"];?>
     <div class="row">
       <div class="col-md-6">
         <div class="card bg-info">
           <div class="card-header">
-            Amount - ₹ <?php echo $amount?>
+            Amount - ₹ <?php echo $wamount?>
           </div>
           <div class="card-body">
             <h5 class="card-title">Status - <?php echo $status?></h5>

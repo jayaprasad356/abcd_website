@@ -7,7 +7,6 @@ if (!isset($_SESSION['id'])) {
 }
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
-$_SESSION['codes'] = 60;
 $data = array(
     "user_id" => $user_id,
 );

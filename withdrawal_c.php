@@ -1,6 +1,9 @@
 <?php
 include_once('includes/crud.php');
 session_start();
+if (!isset($_SESSION['id'])) {
+  header("location:index.php");
+}
 $user_id = $_SESSION['id'];
 $amount = $_SESSION['balance'] ;
 ?>

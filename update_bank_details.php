@@ -62,6 +62,58 @@ if (isset($_POST['btnUpdate'])) {
 }
 ?>
 
+<?php
+
+
+if (!isset($_SESSION['id'])) {
+  header("location:index.php");
+}
+
+$user_id = $_SESSION['id']; // Replace with the actual user_id
+$data = array(
+    "user_id" => $user_id,
+);
+
+$apiUrl = API_URL."bankdetails.php";
+
+
+$curl = curl_init($apiUrl);
+
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$response = curl_exec($curl);
+
+
+if ($response === false) {
+    // Error in cURL request
+    echo "Error: " . curl_error($curl);
+} else {
+    // Successful API response
+    $responseData = json_decode($response, true);
+    if ($responseData !== null && $responseData["success"]) {
+        // Display transaction details
+        $bankdetails = $responseData["data"];
+        if (!empty($bankdetails)) {
+            $account_num = $bankdetails[0]["account_num"];
+            $holder_name = $bankdetails[0]["holder_name"];
+            $bank = $bankdetails[0]["bank"];
+            $branch = $bankdetails[0]["branch"];
+            $ifsc = $bankdetails[0]["ifsc"];
+        } else {
+            echo "No transactions found.";
+        }
+    } else {
+        if ($responseData !== null) {
+            echo " Error message: " . $responseData["message"];
+        }
+    }
+}
+
+curl_close($curl);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,45 +151,46 @@ if (isset($_POST['btnUpdate'])) {
           </div>
         </div>
         <div class="row justify-content-center mt-4">
-          <div class="col-10 col-sm-6">
-            <div class="form-group mb-3">
-              <label for="account_num" id="account_num" class="label-yellow-bold">Account Number:</label>
-              <input type="text" id="account_num" name="account_num" placeholder="account_num" class="form-control" required />
-            </div>
-          </div>
+    <div class="col-10 col-sm-6">
+        <div class="form-group mb-3">
+            <label for="account_num" id="account_num" class="label-yellow-bold">Account Number:</label>
+            <input type="text" id="account_num" name="account_num" placeholder="account_num" class="form-control" required value="<?php echo isset($account_num) ? htmlspecialchars($account_num) : ''; ?>" />
         </div>
-        <div class="row justify-content-center">
-          <div class="col-10 col-sm-6">
-            <div class="form-group mb-3">
-              <label for="holder_name" id="holder_name" class="label-yellow-bold">Account Holder Name:</label>
-              <input type="text" id="holder_name" name="holder_name" placeholder="holder_name" class="form-control" required />
-            </div>
-          </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6">
+        <div class="form-group mb-3">
+            <label for="holder_name" id="holder_name" class="label-yellow-bold">Account Holder Name:</label>
+            <input type="text" id="holder_name" name="holder_name" placeholder="holder_name" class="form-control" required value="<?php echo isset($holder_name) ? htmlspecialchars($holder_name) : ''; ?>" />
         </div>
-        <div class="row justify-content-center">
-          <div class="col-10 col-sm-6">
-            <div class="form-group mb-3">
-              <label for="bank" id="bank" class="label-yellow-bold">Bank Name:</label>
-              <input type="text" id="bank" name="bank" placeholder="bank" class="form-control" required />
-            </div>
-          </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6">
+        <div class="form-group mb-3">
+            <label for="bank" id="bank" class="label-yellow-bold">Bank Name:</label>
+            <input type="text" id="bank" name="bank" placeholder="bank" class="form-control" required value="<?php echo isset($bank) ? htmlspecialchars($bank) : ''; ?>" />
         </div>
-        <div class="row justify-content-center">
-          <div class="col-10 col-sm-6">
-            <div class="form-group mb-3">
-              <label for="branch" id="branch" class="label-yellow-bold">Branch:</label>
-              <input type="text" id="branch" name="branch" placeholder="branch" class="form-control" required />
-            </div>
-          </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6">
+        <div class="form-group mb-3">
+            <label for="branch" id="branch" class="label-yellow-bold">Branch:</label>
+            <input type="text" id="branch" name="branch" placeholder="branch" class="form-control" required value="<?php echo isset($branch) ? htmlspecialchars($branch) : ''; ?>" />
         </div>
-        <div class="row justify-content-center">
-          <div class="col-10 col-sm-6">
-            <div class="form-group mb-3">
-              <label for="ifsc" id="ifsc" class="label-yellow-bold">IFSC Code:</label>
-              <input type="text" id="ifsc" name="ifsc" placeholder="ifsc" class="form-control" required />
-            </div>
-          </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6">
+        <div class="form-group mb-3">
+            <label for="ifsc" id="ifsc" class="label-yellow-bold">IFSC Code:</label>
+            <input type="text" id="ifsc" name="ifsc" placeholder="ifsc" class="form-control" required value="<?php echo isset($ifsc) ? htmlspecialchars($ifsc) : ''; ?>" />
         </div>
+    </div>
+</div>
+
         <div class="row justify-content-center mt-4">
           <div class="col-8 col-sm-4 text-center">
             <button type="submit" name="btnUpdate" class="btn btn-primary">update</button>

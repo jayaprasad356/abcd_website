@@ -50,10 +50,21 @@ if (isset($_POST['btnUpdate'])) {
     } else {
         // Decode the JSON response from the API
         $responseData = json_decode($response, true);
-        if ($responseData["success"]) {
-            echo '<script>alert("Bank details updated successfully.");</script>';
+        if ($responseData !== null && isset($responseData["success"])) {
+            $message = $responseData["message"];
+            if(isset($responseData["balance"])){
+              $_SESSION['balance'] = $responseData['balance'];
+            $balance = $_SESSION['balance'] ;
+    
+            }
+            
+            echo "<script>alert('$message');</script>";
+    
         } else {
-            echo '<script>alert("User not found or an error occurred.");</script>';
+            // echo "Failed to fetch transaction details.";
+            // if ($responseData !== null) {
+            //     echo " Error message: " . $responseData["message"];
+            // }
         }
     }
 
@@ -74,7 +85,7 @@ $data = array(
     "user_id" => $user_id,
 );
 
-$apiUrl = API_URL."bankdetails.php";
+$apiUrl = API_URL."bank_details.php";
 
 
 $curl = curl_init($apiUrl);
@@ -93,9 +104,11 @@ if ($response === false) {
 } else {
     // Successful API response
     $responseData = json_decode($response, true);
+
     if ($responseData !== null && $responseData["success"]) {
         // Display transaction details
         $bankdetails = $responseData["data"];
+   
         if (!empty($bankdetails)) {
             $account_num = $bankdetails[0]["account_num"];
             $holder_name = $bankdetails[0]["holder_name"];

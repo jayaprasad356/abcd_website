@@ -55,8 +55,8 @@ curl_close($curl);
 <?php
 
 if (isset($_POST['btnSync'])) {
-  if($codes != 60){
-    $message = 'Generate 60 Codes Please';
+  if($codes != 120){
+    $message = 'Generate 120 Codes Please';
     echo "<script>alert('$message');</script>";
   }
 $data = array(
@@ -82,7 +82,7 @@ if ($response === false) {
 } else {
     // Successful API response
     $responseData = json_decode($response, true);
-    if ($responseData !== null && $codes == 60 && isset($responseData["today_codes"])) {
+    if ($responseData !== null && $codes == 120 && isset($responseData["today_codes"])) {
         $message = $responseData["message"];
         $today_codes = $responseData["today_codes"];
         $total_codes = $responseData["total_codes"];
@@ -260,8 +260,8 @@ function moveToNext(currentInput, nextInputId) {
   }
 }
 function syncnow() {
-  if(codes != 60){
-    alert("Please Generate 60 Codes")
+  if(codes != 120){
+    alert("Please Generate 120 Codes")
   }
 
 

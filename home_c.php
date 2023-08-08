@@ -5,6 +5,7 @@ session_start();
 if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
+// $_SESSION['codes'] = 120;
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
 $data = array(
@@ -92,6 +93,8 @@ if ($response === false) {
         echo "<script>alert('$message');</script>";
 
     } else {
+      $message = $responseData["message"];
+      echo "<script>alert('$message');</script>";
         // echo "Failed to fetch transaction details.";
         // if ($responseData !== null) {
         //     echo " Error message: " . $responseData["message"];

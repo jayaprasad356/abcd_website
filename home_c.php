@@ -38,6 +38,8 @@ if ($response === false) {
             $total_codes = $userdetails[0]["total_codes"];
             $worked_days = $userdetails[0]["worked_days"];
             $level = $userdetails[0]["level"];
+            $daily_wallet = $userdetails[0]["daily_wallet"];
+            $monthly_wallet = $userdetails[0]["monthly_wallet"];
             $_SESSION['balance'] = $userdetails[0]["balance"];
         } else {
             echo "No transactions found.";
@@ -148,6 +150,53 @@ if ($response === false) {
 
 curl_close($curl);
 ?>
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $user_id = $_SESSION['id'];
+    $wallet_type = $_POST['wallet_type']; 
+
+    $data = array(
+        "user_id" => $user_id,
+        "wallet_type" => $wallet_type,
+    );
+
+    $apiUrl = API_URL . "add_main_balance.php"; // Replace with the actual API endpoint URL
+
+    $curl = curl_init($apiUrl);
+
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($curl);
+
+    if ($response === false) {
+        // Error in cURL request
+        echo "Error: " . curl_error($curl);
+    } else {
+        // Successful API response
+        $responseData = json_decode($response, true);
+        if ($responseData !== null && $responseData["success"]) {
+            // Handle the successful response here
+            // You might update the user's main balance or display a success message
+            if ($wallet_type === "daily_wallet") {
+                echo "<script>alert('Balance added to Daily Wallet successfully!');</script>";
+            } elseif ($wallet_type === "monthly_wallet") {
+                echo "<script>alert('Balance added to Monthly Wallet successfully!');</script>";
+            }
+        } else {
+            $message = $responseData["message"];
+            echo "<script>alert('$message');</script>";
+        }
+    }
+    curl_close($curl);
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,15 +218,13 @@ curl_close($curl);
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-sm-12" style="display: block; height: 100vh; background-color: rgb(90, 72, 119);">
+    <div class="col-12 col-sm-12" style="display: block; height: 110vh; background-color: rgb(90, 72, 119);">
     <div class="row" >
       <div class="col-3">
         <h5 class="text-white"id="codes"><?php echo  $codes?></h5>
         <form method="post" enctype="multipart/form-data">
           <button type="submit" name="btnSync" class="btn btn-primary" >Sync Now</button>
         </form>
-        
-        
       </div>
       <div class="col-4" style="height: 100%;">
         <!-- <p style="margin-bottom: 0; color: white;">Balance 5</p> -->
@@ -190,9 +237,32 @@ curl_close($curl);
       <button class="btn btn-primary btn-block mb-3" onclick="withdrawal()">Withdrawal</button>
     </div>
 </div>
-
-
-
+<div class="container">
+  <div class="row justify-content-center">
+  <div class="col-md-2 col-6 mb-3"> 
+      <div class="card p-2 text-center" style="background-color:#e6def3; max-width: 150px; height:110px;">
+        <p class="label-dark-bold" style="color:blue;font-size:8px;">Daily Withdrawal Wallet type</p>
+        <p class="label-dark-bold" style="color:red;font-size:10px;">₹<?php echo $daily_wallet; ?></p>
+        <div class="form-group mt-1">
+          <form method="post">
+            <button class="btn btn-sm btn-block" style="background-color:#353250;color:white;font-size:10px;" name="wallet_type" value="daily_wallet">Add to Main Balance</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 col-6 mb-3"> 
+      <div class="card p-2 text-center" style="background-color:#e6def3; max-width: 150px; height:110px;">
+        <p class="label-dark-bold" style="color:blue;font-size:8px;">Withdrawal After Plan Days</p>
+        <p class="label-dark-bold" style="color:red;font-size:10px;">₹<?php echo $monthly_wallet; ?></p>
+        <div class="form-group mt-1">
+          <form method="post">
+            <button class="btn btn-sm btn-block" style="background-color:#353250; color:white;font-size:10px;" name="wallet_type" value="monthly_wallet">Add to Main Balance</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
       <div class="form-group mb-3">
@@ -356,6 +426,7 @@ $.ajax({
 
 }
 </script>
+
 
 
 

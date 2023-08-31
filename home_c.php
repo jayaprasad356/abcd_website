@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
-// $_SESSION['codes'] = 120;
+$_SESSION['codes'] = 120;
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
 $data = array(
@@ -45,7 +45,7 @@ if ($response === false) {
             echo "No transactions found.";
         }
     } else {
-        echo "Failed to fetch transaction details.";
+        //echo "Failed to fetch transaction details.";
         if ($responseData !== null) {
             echo " Error message: " . $responseData["message"];
         }
@@ -90,6 +90,8 @@ if ($response === false) {
         $today_codes = $responseData["today_codes"];
         $total_codes = $responseData["total_codes"];
         $_SESSION['balance'] = $responseData["balance"];
+        $daily_wallet = $responseData["daily_wallet"];
+        $monthly_wallet = $responseData["monthly_wallet"];
         $_SESSION['codes'] = 0;
         $codes = $_SESSION['codes'];
         echo "<script>alert('$message');</script>";
@@ -141,7 +143,7 @@ if ($response === false) {
         $city = $studentdata[0]["ecity"];
         $id_number = $studentdata[0]["id_number"];
     } else {
-        echo "Failed to fetch transaction details.";
+        //echo "Failed to fetch transaction details.";
         if ($responseData !== null) {
             echo " Error message: " . $responseData["message"];
         }
@@ -151,7 +153,7 @@ if ($response === false) {
 curl_close($curl);
 ?>
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if (isset($_POST['wallet_type'])) {
 
     $user_id = $_SESSION['id'];
     $wallet_type = $_POST['wallet_type']; 
@@ -179,13 +181,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Successful API response
         $responseData = json_decode($response, true);
         if ($responseData !== null && $responseData["success"]) {
-            // Handle the successful response here
-            // You might update the user's main balance or display a success message
-            if ($wallet_type === "daily_wallet") {
-                echo "<script>alert('Balance added to Daily Wallet successfully!');</script>";
-            } elseif ($wallet_type === "monthly_wallet") {
-                echo "<script>alert('Balance added to Monthly Wallet successfully!');</script>";
-            }
+          $userdetails = $responseData["data"];
+          if (!empty($userdetails)) {
+              $today_codes = $userdetails[0]["today_codes"];
+              $total_codes = $userdetails[0]["total_codes"];
+              $worked_days = $userdetails[0]["worked_days"];
+              $level = $userdetails[0]["level"];
+              $daily_wallet = $userdetails[0]["daily_wallet"];
+              $monthly_wallet = $userdetails[0]["monthly_wallet"];
+              $_SESSION['balance'] = $userdetails[0]["balance"];
+          } 
+          $message = $responseData["message"];
+          echo "<script>alert('$message');</script>";
         } else {
             $message = $responseData["message"];
             echo "<script>alert('$message');</script>";

@@ -105,7 +105,7 @@ curl_close($curl);
           <label for="name" id="l_name" class="label-yellow-bold">Enter Amount</label>
           <input type="text" id="amount" name="amount" placeholder="Enter Amount" class="form-control" required />
         </div>
-        <p><small class="text-white">Minimum Withdrawal Rs.250</small></p>
+        <p><small class="text-white">Minimum Withdrawal Rs.60</small></p>
       </div>
     </div>
     <div class="row">

@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['id'])) {
   header("location:index.php");
 }
-$_SESSION['codes'] = 120;
+//$_SESSION['codes'] = 120;
 $codes = $_SESSION['codes'];
 $user_id = $_SESSION['id']; // Replace with the actual user_id
 $data = array(

@@ -41,6 +41,7 @@ if ($response === false) {
             $daily_wallet = $userdetails[0]["daily_wallet"];
             $monthly_wallet = $userdetails[0]["monthly_wallet"];
             $_SESSION['balance'] = $userdetails[0]["balance"];
+            $_SESSION['per_code_val'] = $userdetails[0]["per_code_val"];
         } else {
             echo "No transactions found.";
         }
